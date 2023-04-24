@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     min-width: 1040px;
     min-height: 100%;
     font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+    background-color: #f2f2f2;
   }
   button {
     margin: 0;
@@ -16,5 +17,6 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
     cursor: pointer;
   }
+  a{  text-decoration: none}
 `;
 export default GlobalStyle;
