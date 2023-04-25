@@ -50,7 +50,7 @@ export const IcoArrow = styled.span`
   height: 5px;
   border-top: 1px solid #555;
   border-left: 1px solid #555;
-  transform: rotate(133deg);
+  transform: rotate(225deg);
 `;
 
 export const ListSelect = styled.ul`
