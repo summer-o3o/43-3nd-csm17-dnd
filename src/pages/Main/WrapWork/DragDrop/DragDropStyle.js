@@ -7,14 +7,14 @@ export const GroupWork = styled.div`
   padding-top: 20px;
 `;
 
-export const ListWork = styled.ul`
+export const ListWork = styled.div`
   width: -webkit-calc(20% - 30px);
   width: -moz-calc(20% - 30px);
   width: calc(20% - 30px);
   padding-left: 30px;
 `;
 
-export const Li = styled.li`
+export const Li = styled.div`
   padding-top: 30px;
 `;
 
