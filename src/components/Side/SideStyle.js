@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Side = styled.aside`
   position: fixed;
@@ -9,6 +10,7 @@ export const Side = styled.aside`
   padding: 15px 0;
   background-color: #fff;
   box-sizing: border-box;
+  z-index: 10;
 `;
 
 export const TitList = styled.h2`
@@ -31,7 +33,7 @@ export const InpSearch = styled.input`
   border: 1px solid #dedede;
 `;
 
-export const BtnSesrch = styled.button`
+export const BtnSearch = styled.button`
   position: absolute;
   right: 29px;
   top: 7px;
@@ -40,7 +42,7 @@ export const BtnSesrch = styled.button`
   padding: 5px 10px;
 `;
 
-export const WrapWrok = styled.div`
+export const WrapWork = styled.div`
   padding-top: 25px;
 `;
 
@@ -50,4 +52,17 @@ export const TitleG = styled.h3`
   font-weight: normal;
   background-color: #dedede;
   color: #222;
+`;
+
+export const ListFolder = styled.ul``;
+
+export const LinkFolder = styled(Link)`
+  display: block;
+  font-size: 14px;
+  color: #555;
+  padding: 15px 20px;
+
+  &:hover {
+    background-color: #f2f2f2;
+  }
 `;

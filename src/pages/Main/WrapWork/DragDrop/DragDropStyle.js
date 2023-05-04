@@ -26,6 +26,7 @@ export const LinkWork = styled(Link)`
   padding: 25px 20px;
   background-color: #fff;
 
+  &.on::after,
   &:hover::after {
     position: absolute;
     inset: -1px;

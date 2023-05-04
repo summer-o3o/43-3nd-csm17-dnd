@@ -6,6 +6,45 @@ import * as S from './DragDropStyle';
 const DragDrop = () => {
   const { ScreenOut } = Common;
   const [work, setWork] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const dragging = snapshot => snapshot.isDragging && 'on';
+
+  // 드래그가 시작될 때 선택한 아이템 초기화
+  const handleDragStart = start => {
+    setSelectedItems([]);
+  };
+
+  // 아이템 선택 또는 선택 해제
+  const toggleItemSelection = itemId => {
+    if (selectedItems.includes(itemId)) {
+      setSelectedItems(selectedItems.filter(id => id !== itemId));
+    } else {
+      setSelectedItems([...selectedItems, itemId]);
+    }
+  };
+
+  // 드롭할 때 선택한 아이템 이동
+  const handleDrop = result => {
+    const { destination, source } = result;
+    if (destination) {
+      // 선택한 아이템들을 이동할 위치로 이동
+      const selectedItemsToMove = work[source.droppableId].items.filter(item =>
+        selectedItems.includes(item.id)
+      );
+      const remainingItems = work[source.droppableId].items.filter(
+        item => !selectedItems.includes(item.id)
+      );
+      const movedItems = [
+        ...remainingItems.slice(0, source.index),
+        ...selectedItemsToMove,
+        ...remainingItems.slice(source.index),
+      ];
+      work[source.droppableId].items = movedItems;
+    }
+    setSelectedItems([]); // 선택한 아이템 초기화
+  };
+
   const handleDragEnd = result => {
     const { source, destination, draggableId } = result;
 
@@ -73,7 +112,7 @@ const DragDrop = () => {
   }, []);
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
+    <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <S.GroupWork>
         {work.map(product => {
           return (
@@ -83,15 +122,16 @@ const DragDrop = () => {
               direction="vertical"
               type="column1"
             >
-              {provided => (
+              {(provided, snapshot) => (
                 <S.ListWork
                   {...provided.droppableProps}
                   ref={provided.innerRef}
+                  isDraggingOver={snapshot.isDraggingOver} // 드래그 중인지 여부를 스타일링에 사용
                 >
                   {product.items.map(({ id, name, count, level }, index) => {
                     return (
                       <Draggable key={id} draggableId={id} index={index}>
-                        {provided => (
+                        {(provided, snapshot) => (
                           <S.Li
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
@@ -100,8 +140,11 @@ const DragDrop = () => {
                             style={{
                               ...provided.draggableProps.style,
                             }}
+                            onClick={() => toggleItemSelection(id)} // 아이템 클릭 시 toggleItemSelection 함수 호출
                           >
-                            <S.LinkWork>
+                            <S.LinkWork
+                              className={dragging(snapshot)} // 동적으로 클래스를 추가
+                            >
                               <S.textInfo>편집 진행중</S.textInfo>
                               <S.TitName>
                                 <ScreenOut>내 문제지 이름 :</ScreenOut>
